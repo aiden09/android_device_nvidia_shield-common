@@ -29,10 +29,17 @@ PRODUCT_PACKAGES += \
     init.hdcp.rc \
     init.nv_dev_board.usb.rc \
     init.none.rc \
-    init.tegra.rc \
-    init.tlk.rc
+    init.tegra.rc
 
-ifneq ($(filter $(TARGET_TEGRA_VERSION),t124),)
+ifneq ($(filter $(TARGET_TEGRA_VERSION),t114),)
+	PRODUCT_PACKAGES += init.tf.rc
+else
+	PRODUCT_PACKAGES += init.tlk.rc
+endif
+
+ifneq ($(filter $(TARGET_TEGRA_VERSION),t114),)
+        PRODUCT_PACKAGES += init.t114.rc
+else ifneq ($(filter $(TARGET_TEGRA_VERSION),t124),)
         PRODUCT_PACKAGES += init.t124.rc
 else ifneq ($(filter $(TARGET_TEGRA_VERSION),t210),)
         PRODUCT_PACKAGES += \
@@ -57,7 +64,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.ethernet.xml:system/etc/permissions/android.hardware.ethernet.xml \
-    frameworks/native/data/etc/android.hardware.opengles.aep.xml:system/etc/permissions/android.hardware.opengles.aep.xml \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
@@ -81,6 +87,7 @@ PRODUCT_PACKAGES += \
 ifneq ($(TARGET_TEGRA_TOUCH),)
         PRODUCT_PACKAGES += \
             init.cal.rc \
+            raydium_ts.idc \
             touch.idc \
             sensor00fn11.idc
 endif
