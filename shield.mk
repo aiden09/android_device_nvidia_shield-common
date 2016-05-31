@@ -77,11 +77,14 @@ PRODUCT_PACKAGES += \
     libaudio-resampler \
     libaudiospdif \
     libtinyalsa \
-    libtinycompress \
     tinycap \
     tinymix \
     tinyplay \
     xaplay
+
+ifeq ($(filter $(TARGET_TEGRA_VERSION),t114),)
+	PRODUCT_PACKAGES += libtinycompress
+endif
 
 # idc
 ifneq ($(TARGET_TEGRA_TOUCH),)
